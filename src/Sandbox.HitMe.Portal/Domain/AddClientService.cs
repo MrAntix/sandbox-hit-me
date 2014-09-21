@@ -1,9 +1,7 @@
 using System.Collections.Concurrent;
 using System.Threading.Tasks;
-using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
 using Sandbox.HitMe.Portal.Domain.Models;
-using Sandbox.HitMe.Portal.Realtime;
 
 namespace Sandbox.HitMe.Portal.Domain
 {
@@ -14,7 +12,7 @@ namespace Sandbox.HitMe.Portal.Domain
         readonly IHubConnectionContext<dynamic> _clients;
 
         public AddClientService(
-            ConcurrentDictionary<string, ClientModel> clientsCache, 
+            ConcurrentDictionary<string, ClientModel> clientsCache,
             IHubConnectionContext<dynamic> clients)
         {
             _clientsCache = clientsCache;
@@ -23,7 +21,6 @@ namespace Sandbox.HitMe.Portal.Domain
 
         public async Task ExecuteAsync(ClientModel client)
         {
-
             _clientsCache.AddOrUpdate(client.Id, client, (s, existing) => client);
 
             _clients.All.Add(

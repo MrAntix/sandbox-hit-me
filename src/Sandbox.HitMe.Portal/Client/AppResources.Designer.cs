@@ -61,7 +61,7 @@ namespace Sandbox.HitMe.Portal.Client {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Hit Me.
+        ///   Looks up a localized string similar to Hit.
         /// </summary>
         public static string Title {
             get {

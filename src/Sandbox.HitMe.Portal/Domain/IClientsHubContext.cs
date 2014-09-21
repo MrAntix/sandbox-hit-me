@@ -5,6 +5,5 @@ namespace Sandbox.HitMe.Portal.Domain
     public interface IClientsHubContext :
         IHubContext
     {
-        
     }
 }
