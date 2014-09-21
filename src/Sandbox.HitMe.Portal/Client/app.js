@@ -14,10 +14,10 @@ app
         'AppController',
         [
             '$log','$scope',
-            'AntixMapService',
+            'AntixMapService', 'antixMapEvents',
             function (
                 $log, $scope,
-                AntixMapService) {
+                AntixMapService, antixMapEvents) {
 
                 var clients = $.connection.clientsHub;
 
@@ -42,22 +42,29 @@ app
                     $log.debug('AppController.client.hit ' + JSON.stringify(hit));
                 }
 
-                var add = function (latitude, longitude, title) {
-                    AntixMapService.addMarker({
-                        title:title,
-                        location: { longitude: longitude, latitude: latitude }
+                $scope.$on(antixMapEvents.ready, function () {
+                    $.connection.hub.start().done(function() {
+
+                        //calibrate();
+
                     });
-                }
-
-                $.connection.hub.start().done(function () {
-
-                    //add(0, 0, 'mid');
-
-                    //add(23.0506654, -82.3329682, 'havana');
-                    //add(51.5286416, -0.1015987, 'london');
-                    //add(64.132442, -21.8569031, 'reykjavik');
-                    //add(-33.7969235, 150.9224326, 'sydney');
                 });
+
+                var calibrate=function() {
+                    var add = function (latitude, longitude, title) {
+                        AntixMapService.addMarker({
+                            title: title,
+                            location: { longitude: longitude, latitude: latitude }
+                        });
+                    }
+
+                    add(0, 0, 'mid');
+
+                    add(23.0506654, -82.3329682, 'havana');
+                    add(51.5286416, -0.1015987, 'london');
+                    add(64.132442, -21.8569031, 'reykjavik');
+                    add(-33.7969235, 150.9224326, 'sydney');
+                }
             }
         ])
 

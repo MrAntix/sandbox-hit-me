@@ -3,6 +3,7 @@
 angular.module('antix.map', [
 ])
     .constant('antixMapEvents', {
+        ready: 'antix-map:ready',
         addMarker: 'antix-map:add-marker',
         removeMarker: 'antix-map:remove-marker'
     })
@@ -74,6 +75,7 @@ angular.module('antix.map', [
             $scope,
             antixMapEvents) {
 
+            $scope.$root.$broadcast(antixMapEvents.ready);
         }
     ])
     .service('AntixMapService', [
