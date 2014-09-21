@@ -1,0 +1,42 @@
+﻿@import "bootstrap/bootstrap.less";
+@import "site/status.less";
+
+@body-bg: #ddf;
+@map-sea: #bcd;
+@map-land: #ba8;
+
+body {
+    padding-top: @navbar-height + 20px;
+}
+
+.antix-map {
+    background-color: @map-sea;
+    box-shadow: 0 0 4px rgba(0,0,0,.1);
+    
+        overflow:hidden;
+
+    .antix-map-canvas {
+        position:relative;
+
+        padding:1% 0;
+
+        >img{
+            width:100%;
+        }
+        
+        .land {
+            fill: @map-land;
+            fill-opacity: 1;
+            stroke: @map-sea;
+            stroke-opacity: 1;
+            stroke-width: .5;
+        }
+
+        .antix-map-marker{
+            position:absolute;
+            overflow:visible;
+            width:2px; height:2px;
+            background-color:#000;
+        }
+    }
+}
