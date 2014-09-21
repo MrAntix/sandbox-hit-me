@@ -1,5 +1,7 @@
 ﻿using System.Web.Http;
 using System.Web.Optimization;
+using Castle.Windsor;
+using Microsoft.AspNet.SignalR;
 using Owin;
 using Sandbox.HitMe.Portal.Configuration;
 
@@ -9,10 +11,12 @@ namespace Sandbox.HitMe.Portal
     {
         public void Configuration(IAppBuilder app)
         {
-            app.MapSignalR();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
-
             BundleConfiguration.Configure(BundleTable.Bundles);
+
+            new WindsorContainer()
+                .Configure()
+                .Configure(new HubConfiguration(), app)
+                .Configure(GlobalConfiguration.Configuration);
         }
     }
 }
