@@ -21,12 +21,12 @@ app
 
                 var clients = $.connection.clientsHub;
 
-                clients.client.add = function (client) {
+                clients.client.add = function(client) {
                     $log.debug('AppController.client.add ' + JSON.stringify(location));
-                    
+
                     AntixMapService.addMarker({
                         id: client.id,
-                        title: client.name,
+                        title: client.id == $.connection.hub.id ? 'You' : '',
                         location: client.location
                     });
                 };
