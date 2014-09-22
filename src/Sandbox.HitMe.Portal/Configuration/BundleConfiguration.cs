@@ -13,7 +13,6 @@ namespace Sandbox.HitMe.Portal.Configuration
 
             bundles
                 .Add(new ScriptBundle("~/bundles/scripts")
-                    .Include("~/Scripts/jquery-{version}.js")
                     .Include("~/Scripts/jquery.signalr-{version}.js")
                     .Include("~/Scripts/angular.js")
                     .Include("~/Scripts/angular-resource.js")

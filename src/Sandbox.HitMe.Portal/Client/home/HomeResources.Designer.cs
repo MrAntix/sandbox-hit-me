@@ -70,17 +70,6 @@ namespace Sandbox.HitMe.Portal.Client.home {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;h1&gt;You are on the map&lt;/h1&gt;
-        ///&lt;ul&gt;&lt;li&gt;Enter your email to send yourself a link&lt;/li&gt;&lt;li&gt;Keep an eye on the map&lt;/li&gt;&lt;/ul&gt;
-        ///&lt;p&gt;If anyone hits that link, you will see it on the map&lt;/p&gt;.
-        /// </summary>
-        public static string Tag {
-            get {
-                return ResourceManager.GetString("Tag", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string Title {

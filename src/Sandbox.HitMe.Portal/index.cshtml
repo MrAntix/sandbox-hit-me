@@ -39,6 +39,12 @@
             </div>
         </div>
     </div>
+    
+    <div class="tag">
+        <div class="container">
+            @Html.Raw(AppResources.Tag)
+        </div>
+    </div>
 
     <div class="view-container">
 
@@ -52,11 +58,13 @@
             <p class="pull-right navbar-text">
                 <a href="http://antix.co.uk">antix.co.uk</a>
             </p>
-            @Html.Raw(AppResources.Foot)
-
+            <p class="pull-leftt navbar-text">
+                @Html.Raw(AppResources.Foot)
+            </p>
         </div>
     </div>
-
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     @Scripts.Render("~/bundles/scripts")
 
     <script src="~/signalr/hubs"></script>

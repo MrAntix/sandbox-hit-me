@@ -120,11 +120,6 @@
   <data name="SendPopover" xml:space="preserve">
     <value>enter your email to get a link</value>
   </data>
-  <data name="Tag" xml:space="preserve">
-    <value>&lt;h1&gt;You are on the map&lt;/h1&gt;
-&lt;ul&gt;&lt;li&gt;Enter your email to send yourself a link&lt;/li&gt;&lt;li&gt;Keep an eye on the map&lt;/li&gt;&lt;/ul&gt;
-&lt;p&gt;If anyone hits that link, you will see it on the map&lt;/p&gt;</value>
-  </data>
   <data name="Title" xml:space="preserve">
     <value>Home</value>
   </data>
