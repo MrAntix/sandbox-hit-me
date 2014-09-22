@@ -21,19 +21,28 @@ namespace Sandbox.HitMe.Portal.Domain
 
         public async Task ExecuteAsync(ClientModel client)
         {
+            foreach (var other in _clientsCache.Values)
+            {
+                _clients.Client(client.Id).Add(Map(other));
+            }
+
             _clientsCache.AddOrUpdate(client.Id, client, (s, existing) => client);
 
-            _clients.All.Add(
-                new
+            _clients.All.Add(Map(client));
+        }
+
+        static object Map(ClientModel client)
+        {
+            return new
+            {
+                id = client.Id,
+                name = client.IP.Address,
+                location = new
                 {
-                    id = client.Id,
-                    name = client.IP.Address,
-                    location = new
-                    {
-                        latitude = client.IP.Location.Latitude,
-                        longitude = client.IP.Location.Longitude
-                    }
-                });
+                    latitude = client.IP.Location.Latitude,
+                    longitude = client.IP.Location.Longitude
+                }
+            };
         }
     }
 }
