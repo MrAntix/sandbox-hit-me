@@ -4,7 +4,9 @@
         <input type="email" required
                class="form-control" placeholder="email"
                ng-model="email"
-               ng-change="status='Send'">
+               ng-change="status='Send'"
+               popover="enter your email to get a link" popover-placement="bottom"
+               popover-trigger="mouseover">
     </div>
     <button type="submit" class="btn btn-primary"
             ng-click="send()"
