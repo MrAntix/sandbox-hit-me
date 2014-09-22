@@ -36,7 +36,7 @@ namespace Sandbox.HitMe.Portal.Domain
             return new
             {
                 id = client.Id,
-                name = client.IP.Address,
+               // name = client.IP.Address,
                 location = new
                 {
                     latitude = client.IP.Location.Latitude,

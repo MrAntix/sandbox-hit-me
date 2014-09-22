@@ -1,12 +1,13 @@
-﻿<form name="sendForm" novalidate
-      class="navbar-form navbar-right">
+﻿@using Sandbox.HitMe.Portal.Client.home
+<form name="sendForm" novalidate
+      class="navbar-form navbar-right"
+      popover="@HomeResources.SendPopover" popover-placement="bottom"
+      popover-trigger="mouseover">
     <div class="form-group">
         <input type="email" required
                class="form-control" placeholder="email"
                ng-model="email"
-               ng-change="status='Send'"
-               popover="enter your email to get a link" popover-placement="bottom"
-               popover-trigger="mouseover">
+               ng-change="status='Send'">
     </div>
     <button type="submit" class="btn btn-primary"
             ng-click="send()"
