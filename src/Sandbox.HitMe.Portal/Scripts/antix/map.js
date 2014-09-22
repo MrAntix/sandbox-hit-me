@@ -1,16 +1,17 @@
 ﻿'use strict';
 
 angular.module('antix.map', [
-])
+    ])
     .constant('antixMapEvents', {
         ready: 'antix-map:ready',
         addMarker: 'antix-map:add-marker',
-        removeMarker: 'antix-map:remove-marker'
+        removeMarker: 'antix-map:remove-marker',
+        markerMessage: 'antix-map:marker-message'
     })
     .directive('antixMap', [
         '$log',
         'antixMapEvents',
-        function (
+        function(
             $log,
             antixMapEvents) {
             return {
@@ -18,7 +19,7 @@ angular.module('antix.map', [
                 replace: true,
                 templateUrl: 'Scripts/antix/map.cshtml',
                 controller: 'AntixMapController',
-                link: function (scope, element) {
+                link: function(scope, element) {
 
                     var canvas = angular
                         .element(element.find('div')[0]);
@@ -39,11 +40,11 @@ angular.module('antix.map', [
                         return (longitude + 180) / 360 * 100;
                     }
 
-                    scope.$on(antixMapEvents.addMarker, function (e, marker) {
+                    scope.$on(antixMapEvents.addMarker, function(e, marker) {
                         $log.debug('AntixMapController.addMarker ' + JSON.stringify(marker));
 
                         var left = getLeft(marker.location.longitude),
-                            top = getTop(marker.location.latitude)*2.406 -50;
+                            top = getTop(marker.location.latitude) * 2.406 - 50;
 
                         $log.debug('AntixMapController.addMarker @ ' + left + ', ' + top);
 
@@ -56,13 +57,24 @@ angular.module('antix.map', [
                         canvas.append(markerElement);
                     });
 
-                    scope.$on(antixMapEvents.removeMarker, function (e, marker) {
+                    scope.$on(antixMapEvents.removeMarker, function(e, marker) {
                         $log.debug('AntixMapController.removeMarker ' + JSON.stringify(marker));
 
                         angular
-                            .element("#"+marker.id)
+                            .element("#" + marker.id)
                             .remove();
 
+                    });
+
+                    scope.$on(antixMapEvents.markerMessage, function(e, message) {
+                        $log.debug('AntixMapController.markerMessage ' + JSON.stringify(message));
+
+                        var markerElement = angular
+                            .element("#" + message.markerId);
+
+                        var html = markerElement.html();
+
+                        markerElement.html(message.text);
                     });
                 }
             };
@@ -71,7 +83,7 @@ angular.module('antix.map', [
     .controller('AntixMapController', [
         '$scope',
         'antixMapEvents',
-        function (
+        function(
             $scope,
             antixMapEvents) {
 
@@ -81,23 +93,28 @@ angular.module('antix.map', [
     .service('AntixMapService', [
         '$log', '$rootScope',
         'antixMapEvents',
-        function (
+        function(
             $log, $rootScope,
             antixMapEvents) {
 
             var service = {
-                markers: [],
-                addMarker: function (marker) {
+
+                addMarker: function(marker) {
                     $log.debug('AntixMapService.addMarker ' + JSON.stringify(marker));
-                    service.markers.push(marker);
 
                     $rootScope.$broadcast(antixMapEvents.addMarker, marker);
                 },
-                removeMarker: function (marker) {
+
+                removeMarker: function(marker) {
                     $log.debug('AntixMapService.removeMarker ' + JSON.stringify(marker));
-                    service.markers.push(marker);
 
                     $rootScope.$broadcast(antixMapEvents.removeMarker, marker);
+                },
+
+                markerMessage: function(message) {
+                    $log.debug('AntixMapService.markerMessage ' + JSON.stringify(message));
+
+                    $rootScope.$broadcast(antixMapEvents.markerMessage, message);
                 }
             }
 

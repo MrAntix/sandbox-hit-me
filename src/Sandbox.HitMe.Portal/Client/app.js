@@ -22,7 +22,7 @@ app
                 var clients = $.connection.clientsHub;
 
                 clients.client.add = function(client) {
-                    $log.debug('AppController.client.add ' + JSON.stringify(location));
+                    $log.debug('AppController.client.add ' + JSON.stringify(client));
 
                     AntixMapService.addMarker({
                         id: client.id,
@@ -31,7 +31,7 @@ app
                     });
                 };
                 clients.client.remove = function (client) {
-                    $log.debug('AppController.client.remove ' + JSON.stringify(location));
+                    $log.debug('AppController.client.remove ' + JSON.stringify(client));
 
                     AntixMapService.removeMarker({
                         id: client.id
@@ -40,6 +40,12 @@ app
 
                 clients.client.hit = function(hit) {
                     $log.debug('AppController.client.hit ' + JSON.stringify(hit));
+
+                    AntixMapService.markerMessage({
+                        markerId: hit.toClientId,
+                        title: 'Hit!',
+                        text: 'IP: ' + JSON.stringify(hit.fromIP)
+                    });
                 }
 
                 $scope.$on(antixMapEvents.ready, function () {
