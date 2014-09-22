@@ -1,13 +1,14 @@
 ﻿@import "bootstrap/bootstrap.less";
 @import "site/status.less";
 
-@body-bg: #8ad;
+@body-bg: @brand-primary;
 @text-color:#222;
 @map-sea: lighten(@body-bg, 1%);
 
+@border-radius-base:2px;
 
 body {
-    padding-top: @navbar-height + 20px;
+    padding-top: @navbar-height + 20px;    
 }
 
 .antix-map {
@@ -30,4 +31,16 @@ body {
             background-color:#000;
         }
     }
+}
+
+
+.form-control {
+  transition:0.5s linear all;
+}
+.form-control.ng-dirty.ng-touched.ng-invalid {
+  border-color: rgba(240,48,48,.6);
+}
+
+[name='sendForm'] button{
+    width:100px;
 }

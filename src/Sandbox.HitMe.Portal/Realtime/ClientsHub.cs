@@ -1,6 +1,9 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Net.Mail;
+using System.Threading.Tasks;
 using Antix.Logging;
 using Microsoft.AspNet.SignalR;
+using Newtonsoft.Json;
 using Sandbox.HitMe.Portal.Domain;
 using Sandbox.HitMe.Portal.Domain.Models;
 
@@ -23,6 +26,25 @@ namespace Sandbox.HitMe.Portal.Realtime
             _geoLocationService = geoLocationService;
             _addClientService = addClientService;
             _removeClientService = removeClientService;
+        }
+
+        public void Send(string email)
+        {
+            var smtp = new SmtpClient();
+
+            var message = new MailMessage
+            {
+                Subject = "Your message from hit.antix.co.uk",
+                Body = string.Format(
+                    "Please click the link {0}{1}{2}",
+                    Context.Request.Url.GetLeftPart(UriPartial.Authority), "/hit/",
+                    Context.ConnectionId)
+            };
+
+            message.To.Add(new MailAddress(email));
+
+            _log.Information(m => m("Sending Email: {0}", email));
+            smtp.Send(message);
         }
 
         public override async Task OnConnected()

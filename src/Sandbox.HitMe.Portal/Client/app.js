@@ -15,9 +15,11 @@ app
         [
             '$log','$scope',
             'AntixMapService', 'antixMapEvents',
+            'homeEvents',
             function (
                 $log, $scope,
-                AntixMapService, antixMapEvents) {
+                AntixMapService, antixMapEvents,
+                homeEvents) {
 
                 var clients = $.connection.clientsHub;
 
@@ -54,6 +56,17 @@ app
                         //calibrate();
 
                     });
+                });
+
+                $scope.$on(homeEvents.send, function(e, message) {
+                    $log.debug('AppController.server.send ' + JSON.stringify(message));
+                    clients.server.send(message.email)
+                        .done(function() {
+                            $scope.$root.$broadcast(homeEvents.sent, true);
+                        })
+                        .fail(function() {
+                            $scope.$root.$broadcast(homeEvents.sent, false);
+                        });
                 });
 
                 var calibrate=function() {
