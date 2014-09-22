@@ -61,11 +61,12 @@ namespace Sandbox.HitMe.Portal.Client {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to &lt;h1&gt;You are marked on the map above.&lt;/h1&gt;&lt;ul class=&quot;list-unstyled&quot;&gt;&lt;li&gt;Enter your email address to send yourself a link&lt;/li&gt;&lt;li&gt;Keep an eye on the map&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;If anyone hits that link, you will see it on the map&lt;/p&gt;.
+        ///   Looks up a localized string similar to &lt;h5&gt;This site collects no data, it runs in memory&lt;/h5&gt;
+        ///&lt;p&gt;You can &lt;a href=&quot;https://github.com/MrAntix/sandbox-hit-me/&quot;&gt;find the code on github&lt;/a&gt;&lt;/p&gt;.
         /// </summary>
-        public static string Tag {
+        public static string Foot {
             get {
-                return ResourceManager.GetString("Tag", resourceCulture);
+                return ResourceManager.GetString("Foot", resourceCulture);
             }
         }
         

@@ -12,7 +12,7 @@ namespace Sandbox.HitMe.Portal
         public void Configuration(IAppBuilder app)
         {
             BundleConfiguration.Configure(BundleTable.Bundles);
-            BundleTable.EnableOptimizations = false;
+           // BundleTable.EnableOptimizations = false;
 
             new WindsorContainer()
                 .Configure()

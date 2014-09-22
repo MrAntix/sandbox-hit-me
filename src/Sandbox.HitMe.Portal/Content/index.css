@@ -6164,11 +6164,26 @@ button.close {
   }
 }
 body {
-  padding-top: 70px;
+  padding-top: 50px;
+}
+.tag {
+  background-color: #3071a9;
+  color: #e1edf7;
+  margin: 10px 0;
+  padding: 0 0 10px;
+  overflow: auto;
+}
+.tag a {
+  color: #92bce0;
+}
+.tag a:hover,
+.tag a:active {
+  color: #e1edf7;
 }
 .antix-map {
-  background-color: #468dcb;
-  box-shadow: 0 0 4px rgba(0, 0, 0, 0.1);
+  background-color: #4a90cc;
+  max-width: 950px;
+  margin: 0 auto;
 }
 .antix-map .antix-map-canvas {
   position: relative;

@@ -1,14 +1,14 @@
 ﻿@using System.Web.Optimization
 @using Sandbox.HitMe.Portal.Client
 <!DOCTYPE html>
-<html ng-app="app">
+<html data-ng-app="app">
     <head>
         <link rel="icon"
               type="image/png"
               href="Content/graphics/icon-32x32.png">
         <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="find out who clicks your links in your email"/>
 
         <title>@AppResources.Title</title>
 
@@ -16,29 +16,49 @@
         @Styles.Render("~/bundles/styles")
 
     </head>
-    <body ng-controller="AppController">
-    
-        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
-            <div class="container">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="#">
-                        @AppResources.Title
-                    </a>
-                    <div home-send-form></div>
-                </div>
+<body data-ng-controller="AppController">
+
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+            <div class="navbar-header">
+                <button class="navbar-toggle collapsed" type="button" data-toggle="collapse" data-target=".bs-navbar-collapse"
+                        data-ng-click="collapse=!collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+
+                <a class="navbar-brand" href="#">
+                    @AppResources.Title
+                </a>
+            </div>
+            <div class="navbar-collapse collapse" role="navigation"
+                 data-ng-class="{in:collapse}">
+                <div class="navbar navbar-form" data-home-send-form></div>
             </div>
         </div>
+    </div>
 
-        <div class="view-container container">
+    <div class="view-container">
 
-            <div ui-view class="view-frame">
+        <div data-ui-view class="view-frame">
 
-            </div>
-            @Html.Raw(AppResources.Tag)
         </div>
+    </div>
 
-        @Scripts.Render("~/bundles/scripts")
-    
-        <script src="~/signalr/hubs"></script>
-    </body>
+    <div class="tag">
+        <div class="container">
+            <p class="pull-right navbar-text">
+                <a href="http://antix.co.uk">antix.co.uk</a>
+            </p>
+            @Html.Raw(AppResources.Foot)
+
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/scripts")
+
+    <script src="~/signalr/hubs"></script>
+</body>
 </html>

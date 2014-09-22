@@ -2,45 +2,64 @@
 @import "site/status.less";
 
 @body-bg: @brand-primary;
-@text-color:#222;
-@map-sea: lighten(@body-bg, 1%);
+@text-color: #222;
+@map-sea: lighten(@body-bg, 2%);
 
-@border-radius-base:2px;
+@border-radius-base: 2px;
 
 body {
-    padding-top: @navbar-height + 20px;    
+    padding-top: @navbar-height;
+}
+
+.tag {
+    background-color: darken(@body-bg, 10%);
+    color: @list-group-active-text-color;
+    margin: 10px 0;
+    padding: 0 0 10px;
+    overflow: auto;
+}
+
+.tag a {
+    color: lighten(@link-color, 20%);
+}
+
+.tag a:hover,
+.tag a:active {
+    color: @list-group-active-text-color;
 }
 
 .antix-map {
     background-color: @map-sea;
-    box-shadow: 0 0 4px rgba(0,0,0,.1);
-    
+    max-width: 950px;
+    margin: 0 auto;
+
     .antix-map-canvas {
-        position:relative;
+        position: relative;
+        padding: 1% 0;
 
-        padding:1% 0;
-
-        >img{
-            width:100%;
+        > img {
+            width: 100%;
         }
 
-        .antix-map-marker{
-            position:absolute;
-            overflow:visible;
-            width:2px; height:2px;
-            background-color:#000;
+        .antix-map-marker {
+            position: absolute;
+            overflow: visible;
+            width: 2px;
+            height: 2px;
+            background-color: #000;
         }
     }
 }
 
 
 .form-control {
-  transition:0.5s linear all;
-}
-.form-control.ng-dirty.ng-touched.ng-invalid {
-  border-color: rgba(240,48,48,.6);
+    transition: 0.5s linear all;
 }
 
-[name='sendForm'] button{
-    width:100px;
+.form-control.ng-dirty.ng-touched.ng-invalid {
+    border-color: rgba(240,48,48,.6);
+}
+
+[name='sendForm'] button {
+    width: 100px;
 }
