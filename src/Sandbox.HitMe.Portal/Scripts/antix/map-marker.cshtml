@@ -1,5 +1,9 @@
-﻿<div id="{{marker.id}}" class="antix-map-marker {{marker.class}}"
+﻿<div id="{{marker.id}}"
+     class="antix-map-marker {{marker.active?'antix-map-marker-active':''}} {{marker.class}}"
      tooltip="{{marker.title}}" tooltip-trigger="show"
-     active="true">
+     active="{{marker.active}}">
 
+    <div ng-repeat="message in marker.messages" class="alert alert-info">
+        {{message.text}}
+    </div>
 </div>

@@ -6195,15 +6195,19 @@ body {
 .antix-map .antix-map-canvas .antix-map-marker {
   position: absolute;
   overflow: visible;
+  border: solid 1px #000;
   width: 2px;
   height: 2px;
   border-radius: 1px;
-  background-color: #000;
 }
 .antix-map .antix-map-canvas .antix-map-marker.you {
   width: 4px;
   height: 4px;
   border-radius: 2px;
+}
+.antix-map .antix-map-canvas .antix-map-marker .alert {
+  position: absolute;
+  width: auto;
 }
 .form-control {
   transition: 0.5s linear all;

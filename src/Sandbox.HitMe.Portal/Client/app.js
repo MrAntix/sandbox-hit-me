@@ -30,6 +30,7 @@ app
 
                     AntixMapService.addMarker({
                         id: client.id,
+                        active: you,
                         title: you ? 'You' : '',
                         'class': you ? 'you' : '',
                         location: client.location
