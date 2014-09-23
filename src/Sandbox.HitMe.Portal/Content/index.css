@@ -6205,6 +6205,12 @@ body {
   height: 4px;
   border-radius: 2px;
 }
+.antix-map .antix-map-canvas .antix-map-marker.sniper {
+  border: solid 1px #c33;
+  width: 6px;
+  height: 6px;
+  border-radius: 3px;
+}
 .antix-map .antix-map-canvas .antix-map-marker .alert {
   position: absolute;
   width: auto;

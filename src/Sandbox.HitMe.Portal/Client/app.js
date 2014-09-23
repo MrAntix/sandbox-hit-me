@@ -13,11 +13,11 @@ app
     .controller(
         'AppController',
         [
-            '$log', '$scope',
+            '$log', '$scope', '$timeout',
             'AntixMapService', 'antixMapEvents',
             'homeEvents',
             function(
-                $log, $scope,
+                $log, $scope, $timeout,
                 AntixMapService, antixMapEvents,
                 homeEvents) {
 
@@ -48,11 +48,19 @@ app
                 clients.client.hit = function(hit) {
                     $log.debug('AppController.client.hit ' + JSON.stringify(hit));
 
-                    AntixMapService.markerMessage({
-                        markerId: hit.toClientId,
-                        title: 'Hit!',
-                        text: 'IP: ' + JSON.stringify(hit.fromIP)
+                    AntixMapService.addMarker({
+                        id: hit.toClientId + '_hit',
+                        active: true,
+                        title: hit.fromIP.address,
+                        'class': 'sniper',
+                        location: hit.fromIP.location
                     });
+
+                    $timeout(function() {
+                        AntixMapService.removeMarker({
+                            id: hit.toClientId + '_hit'
+                        });
+                    }, 20000);
                 }
 
                 $scope.$on(antixMapEvents.ready, function() {
