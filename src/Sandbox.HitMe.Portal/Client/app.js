@@ -3,7 +3,7 @@
 var app = angular.module('app', [
     'ngTouch',
     'ngAnimate',
-    'ui.bootstrap',
+    'ui.bootstrap', 
     'ui.router',
     'antix.status', 'antix.map',
     'home'
@@ -13,10 +13,10 @@ app
     .controller(
         'AppController',
         [
-            '$log','$scope',
+            '$log', '$scope',
             'AntixMapService', 'antixMapEvents',
             'homeEvents',
-            function (
+            function(
                 $log, $scope,
                 AntixMapService, antixMapEvents,
                 homeEvents) {
@@ -26,14 +26,17 @@ app
                 clients.client.add = function(client) {
                     $log.debug('AppController.client.add ' + JSON.stringify(client));
 
+                    var you = client.id == $.connection.hub.id;
+
                     AntixMapService.addMarker({
                         id: client.id,
-                        title: client.id == $.connection.hub.id ? 'You' : '',
+                        title: you ? 'You' : '',
+                        'class': you ? 'you' : '',
                         location: client.location
                     });
                 };
 
-                clients.client.remove = function (client) {
+                clients.client.remove = function(client) {
                     $log.debug('AppController.client.remove ' + JSON.stringify(client));
 
                     AntixMapService.removeMarker({
@@ -51,7 +54,7 @@ app
                     });
                 }
 
-                $scope.$on(antixMapEvents.ready, function () {
+                $scope.$on(antixMapEvents.ready, function() {
                     $.connection.hub.start().done(function() {
 
                         // calibrate();
@@ -70,8 +73,8 @@ app
                         });
                 });
 
-                var calibrate=function() {
-                    var add = function (latitude, longitude, title) {
+                var calibrate = function() {
+                    var add = function(latitude, longitude, title) {
                         AntixMapService.addMarker({
                             id: title,
                             title: title,
@@ -88,10 +91,9 @@ app
                 }
             }
         ])
-
     .config([
         '$stateProvider', '$urlRouterProvider',
-        function ($stateProvider, $urlRouterProvider) {
+        function($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise("/");
 
             $stateProvider
@@ -102,8 +104,15 @@ app
         }
     ])
     .config([
-        '$httpProvider', function ($httpProvider) {
+        '$httpProvider', function($httpProvider) {
 
             $httpProvider.interceptors.push('antixStatusInterceptor');
+        }
+    ])
+    .config([
+        '$tooltipProvider', function($tooltipProvider) {
+            $tooltipProvider.options({
+                placement: 'top'
+            });
         }
     ]);

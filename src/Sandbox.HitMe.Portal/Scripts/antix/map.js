@@ -1,6 +1,7 @@
 ﻿'use strict';
 
 angular.module('antix.map', [
+    'ui.bootstrap'
 ])
     .constant('antixMapEvents', {
         ready: 'antix-map:ready',
@@ -25,12 +26,13 @@ angular.module('antix.map', [
     ])
     .directive('antixMapMarker', [
         '$log',
-        function ($log) {
+        '$timeout', 
+        function ($log, $timeout) {
             return {
                 restrict: 'AE',
                 replace: true,
                 templateUrl: 'Scripts/antix/map-marker.cshtml',
-                link: function (scope, element) {
+                link: function (scope, element, attrs) {
                     $log.debug('antixMapMarker.link');
 
                     function getTop(latitude) {
@@ -57,6 +59,13 @@ angular.module('antix.map', [
                     $log.debug('AntixMapController.addMarker @ ' + left + ', ' + top);
 
                     element.css({ left: left + "%", top: top + "%" });
+
+                    attrs.$observe('active', function (value) {
+                        $timeout(function() {
+                            $log.debug(value);
+                            if (value) element.triggerHandler('show');
+                        });
+                    });
                 }
             };
         }

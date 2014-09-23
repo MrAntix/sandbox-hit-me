@@ -19,7 +19,6 @@ namespace Sandbox.HitMe.Portal.Configuration
                     .Include("~/Scripts/angular-touch.js")
                     .Include("~/Scripts/angular-cookies.js")
                     .Include("~/Scripts/angular-animate.js")
-                    .Include("~/Scripts/angular-ui/ui-bootstrap.js")
                     .Include("~/Scripts/angular-ui/ui-bootstrap-tpls.js")
                     .Include("~/Scripts/angular-ui-router.js")
                     .IncludeDirectory("~/Scripts/antix/", "*.js", true)
