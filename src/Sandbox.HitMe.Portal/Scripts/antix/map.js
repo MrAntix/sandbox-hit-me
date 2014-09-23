@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('antix.map', [
-    ])
+])
     .constant('antixMapEvents', {
         ready: 'antix-map:ready',
         addMarker: 'antix-map:add-marker',
@@ -10,19 +10,28 @@ angular.module('antix.map', [
     })
     .directive('antixMap', [
         '$log',
-        'antixMapEvents',
-        function(
-            $log,
-            antixMapEvents) {
+        function (
+            $log) {
             return {
                 restrict: 'AE',
                 replace: true,
                 templateUrl: 'Scripts/antix/map.cshtml',
                 controller: 'AntixMapController',
                 link: function(scope, element) {
-
-                    var canvas = angular
-                        .element(element.find('div')[0]);
+                    $log.debug('antixMap.link');
+                }
+            };
+        }
+    ])
+    .directive('antixMapMarker', [
+        '$log',
+        function ($log) {
+            return {
+                restrict: 'AE',
+                replace: true,
+                templateUrl: 'Scripts/antix/map-marker.cshtml',
+                link: function (scope, element) {
+                    $log.debug('antixMapMarker.link');
 
                     function getTop(latitude) {
 
@@ -40,52 +49,27 @@ angular.module('antix.map', [
                         return (longitude + 180) / 360 * 100;
                     }
 
-                    scope.$on(antixMapEvents.addMarker, function(e, marker) {
-                        $log.debug('AntixMapController.addMarker ' + JSON.stringify(marker));
+                    var marker = scope.marker;
 
-                        var left = getLeft(marker.location.longitude),
+                    var left = getLeft(marker.location.longitude),
                             top = getTop(marker.location.latitude) * 2.406 - 50;
 
-                        $log.debug('AntixMapController.addMarker @ ' + left + ', ' + top);
+                    $log.debug('AntixMapController.addMarker @ ' + left + ', ' + top);
 
-                        var markerElement = angular
-                            .element('<div class=\'antix-map-marker\'></div>')
-                            .html(marker.title)
-                            .attr({ id: marker.id })
-                            .css({ left: left + "%", top: top + "%" });
-
-                        canvas.append(markerElement);
-                    });
-
-                    scope.$on(antixMapEvents.removeMarker, function(e, marker) {
-                        $log.debug('AntixMapController.removeMarker ' + JSON.stringify(marker));
-
-                        angular
-                            .element("#" + marker.id)
-                            .remove();
-
-                    });
-
-                    scope.$on(antixMapEvents.markerMessage, function(e, message) {
-                        $log.debug('AntixMapController.markerMessage ' + JSON.stringify(message));
-
-                        var markerElement = angular
-                            .element("#" + message.markerId);
-
-                        var html = markerElement.html();
-
-                        markerElement.html(message.text);
-                    });
+                    element.css({ left: left + "%", top: top + "%" });
                 }
             };
         }
     ])
     .controller('AntixMapController', [
-        '$scope',
+        '$log', '$scope',
+        'AntixMapService',
         'antixMapEvents',
-        function(
-            $scope,
-            antixMapEvents) {
+        function (
+            $log, $scope,
+            AntixMapService, antixMapEvents) {
+
+            $scope.markers = AntixMapService.markers;
 
             $scope.$root.$broadcast(antixMapEvents.ready);
         }
@@ -93,26 +77,41 @@ angular.module('antix.map', [
     .service('AntixMapService', [
         '$log', '$rootScope',
         'antixMapEvents',
-        function(
+        function (
             $log, $rootScope,
             antixMapEvents) {
 
             var service = {
+                markers: {},
 
-                addMarker: function(marker) {
+                addMarker: function (marker) {
                     $log.debug('AntixMapService.addMarker ' + JSON.stringify(marker));
+
+                    $rootScope.$apply(function () {
+                        service.markers[marker.id] = marker;
+                    });
 
                     $rootScope.$broadcast(antixMapEvents.addMarker, marker);
                 },
 
-                removeMarker: function(marker) {
+                removeMarker: function (marker) {
                     $log.debug('AntixMapService.removeMarker ' + JSON.stringify(marker));
+
+                    $rootScope.$apply(function () {
+                        delete service.markers[marker.id];
+                    });
 
                     $rootScope.$broadcast(antixMapEvents.removeMarker, marker);
                 },
 
-                markerMessage: function(message) {
+                markerMessage: function (message) {
                     $log.debug('AntixMapService.markerMessage ' + JSON.stringify(message));
+
+                    $rootScope.$apply(function () {
+                        var marker = service.markers[message.markerId];
+                        if (!marker.messages) marker.messages = [];
+                        marker.messages.push(message);
+                    });
 
                     $rootScope.$broadcast(antixMapEvents.markerMessage, message);
                 }

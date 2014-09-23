@@ -32,6 +32,7 @@ app
                         location: client.location
                     });
                 };
+
                 clients.client.remove = function (client) {
                     $log.debug('AppController.client.remove ' + JSON.stringify(client));
 
@@ -53,7 +54,7 @@ app
                 $scope.$on(antixMapEvents.ready, function () {
                     $.connection.hub.start().done(function() {
 
-                        //calibrate();
+                        // calibrate();
 
                     });
                 });
@@ -72,6 +73,7 @@ app
                 var calibrate=function() {
                     var add = function (latitude, longitude, title) {
                         AntixMapService.addMarker({
+                            id: title,
                             title: title,
                             location: { longitude: longitude, latitude: latitude }
                         });
