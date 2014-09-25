@@ -28,25 +28,6 @@ namespace Sandbox.HitMe.Portal.Realtime
             _removeClientService = removeClientService;
         }
 
-        public void Send(string email)
-        {
-            var smtp = new SmtpClient();
-
-            var message = new MailMessage
-            {
-                Subject = "Your message from hit.antix.co.uk",
-                Body = string.Format(
-                    "Please click the link {0}{1}{2}",
-                    Context.Request.Url.GetLeftPart(UriPartial.Authority), "/hit/",
-                    Context.ConnectionId)
-            };
-
-            message.To.Add(new MailAddress(email));
-
-            _log.Information(m => m("Sending Email: {0}", email));
-            smtp.Send(message);
-        }
-
         public override async Task OnConnected()
         {
             _log.Debug(m => m("connected {0}", Context.ConnectionId));

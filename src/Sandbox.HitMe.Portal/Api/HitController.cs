@@ -2,11 +2,13 @@
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
+using Antix.Http.Filters.Logging;
 using Sandbox.HitMe.Portal.Domain;
 using Sandbox.HitMe.Portal.Domain.Models;
 
 namespace Sandbox.HitMe.Portal.Api
 {
+    [LogAction]
     public class HitController : ApiController
     {
         readonly IGeoLocationService _geoLocationService;

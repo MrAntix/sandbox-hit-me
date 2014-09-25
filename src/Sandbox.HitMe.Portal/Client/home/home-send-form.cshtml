@@ -8,7 +8,7 @@
     </div>
     <button type="submit" class="btn btn-primary"
             ng-click="send()"
-            ng-disabled="sendForm.$invalid">
+            ng-disabled="sendForm.$invalid || sendDisabled">
         {{status}}
     </button>
 </form>

@@ -1047,6 +1047,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\HitController.cs" />
+    <Compile Include="Api\SendController.cs" />
     <Compile Include="Client\AppResources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -1063,15 +1064,21 @@
     <Compile Include="Configuration\WindsorContainerConfiguration.cs" />
     <Compile Include="Domain\AddClientService.cs" />
     <Compile Include="Domain\GeoLocationService.cs" />
+    <Compile Include="Domain\GetHostConfigurationService.cs" />
     <Compile Include="Domain\HitClientService.cs" />
     <Compile Include="Domain\IAddClientService.cs" />
     <Compile Include="Domain\IClientsHubContext.cs" />
+    <Compile Include="Domain\IGetHostConfigurationService.cs" />
     <Compile Include="Domain\IHitClientService.cs" />
     <Compile Include="Domain\IRemoveClientService.cs" />
+    <Compile Include="Domain\ISendService.cs" />
     <Compile Include="Domain\Models\ClientModel.cs" />
     <Compile Include="Domain\Models\HitModel.cs" />
+    <Compile Include="Domain\Models\HostConfiguration.cs" />
     <Compile Include="Domain\Models\IPModel.cs" />
+    <Compile Include="Domain\Models\SendModel.cs" />
     <Compile Include="Domain\RemoveClientService.cs" />
+    <Compile Include="Domain\SendService.cs" />
     <Compile Include="Realtime\ClientsHub.cs" />
     <Compile Include="Configuration\BundleConfiguration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

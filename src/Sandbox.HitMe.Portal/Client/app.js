@@ -15,11 +15,11 @@ app
         [
             '$log', '$scope', '$timeout',
             'AntixMapService', 'antixMapEvents',
-            'homeEvents',
+            'homeEvents', 'HomeSendService',
             function(
                 $log, $scope, $timeout,
                 AntixMapService, antixMapEvents,
-                homeEvents) {
+                homeEvents, HomeSendService) {
 
                 var clients = $.connection.clientsHub;
 
@@ -73,11 +73,16 @@ app
 
                 $scope.$on(homeEvents.send, function(e, message) {
                     $log.debug('AppController.server.send ' + JSON.stringify(message));
-                    clients.server.send(message.email)
-                        .done(function() {
+
+                    HomeSendService.post({
+                            email: message.email,
+                            clientConnectionId: $.connection.hub.id
+                        })
+                        .$promise
+                        .then(function() {
                             $scope.$root.$broadcast(homeEvents.sent, true);
                         })
-                        .fail(function() {
+                        .catch(function() {
                             $scope.$root.$broadcast(homeEvents.sent, false);
                         });
                 });
