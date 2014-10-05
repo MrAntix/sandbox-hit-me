@@ -14,10 +14,12 @@ app
         'AppController',
         [
             '$log', '$scope', '$timeout',
+            'AntixStatusEvents',
             'AntixMapService', 'antixMapEvents',
             'homeEvents', 'HomeSendService',
             function(
                 $log, $scope, $timeout,
+                AntixStatusEvents,
                 AntixMapService, antixMapEvents,
                 homeEvents, HomeSendService) {
 
@@ -62,6 +64,12 @@ app
                         });
                     }, 20000);
                 }
+
+                clients.client.status = function (status) {
+                    $log.debug('AppController.client.status ' + JSON.stringify(status));
+
+                    $scope.$root.$broadcast(AntixStatusEvents.Status, status);
+                };
 
                 $scope.$on(antixMapEvents.ready, function() {
                     $.connection.hub.start().done(function() {
@@ -115,12 +123,6 @@ app
                     url: '/',
                     templateUrl: 'Client/home/home.cshtml',
                 });
-        }
-    ])
-    .config([
-        '$httpProvider', function($httpProvider) {
-
-            $httpProvider.interceptors.push('antixStatusInterceptor');
         }
     ])
     .config([

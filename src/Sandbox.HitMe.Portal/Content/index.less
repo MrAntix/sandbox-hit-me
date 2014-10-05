@@ -1,5 +1,5 @@
 ﻿@import "bootstrap/bootstrap.less";
-@import "site/status.less";
+@import url("../Scripts/antix/status/antix-status.less");
 
 @body-bg: @brand-primary;
 @text-color: #222;
@@ -78,4 +78,44 @@ body {
 
 [name='sendForm'] button {
     width: 100px;
+}
+
+.message {
+    overflow: hidden;
+    text-align: left;
+    padding: 15px 30px 15px 30px;
+}
+
+.message:before {
+    position: absolute;
+    left: 10px;
+    top: 16px;
+    font-family: 'Glyphicons Halflings';
+}
+
+.message-info {
+    color: @alert-info-text;
+    background-color: @alert-info-bg;
+
+    &:before {
+        content: '\e086';
+    }
+}
+
+.message-error {
+    color: @alert-danger-text;
+    background-color: @alert-danger-bg;
+
+    &:before {
+        content: '\e083';
+    }
+}
+
+.message-success {
+    color: @alert-success-text;
+    background-color: @alert-success-bg;
+
+    &:before {
+        content: '\e084';
+    }
 }

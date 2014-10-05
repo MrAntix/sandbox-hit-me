@@ -158,12 +158,6 @@
     <Content Include="Content\index.min.css">
       <DependentUpon>index.css</DependentUpon>
     </Content>
-    <Content Include="Content\site\status.css">
-      <DependentUpon>status.less</DependentUpon>
-    </Content>
-    <Content Include="Content\site\status.min.css">
-      <DependentUpon>status.css</DependentUpon>
-    </Content>
     <Content Include="Scripts\angular-animate.js" />
     <Content Include="Scripts\angular-cookies.js" />
     <Content Include="Scripts\angular-cookies.min.js" />
@@ -195,15 +189,10 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\antix\map.js" />
-    <Content Include="Scripts\antix\status.js" />
     <Content Include="Client\home\home.cshtml" />
     <Content Include="Content\index.less" />
     <Content Include="Content\index.css.map">
       <DependentUpon>index.css</DependentUpon>
-    </Content>
-    <Content Include="Content\site\status.less" />
-    <Content Include="Content\site\status.css.map">
-      <DependentUpon>status.css</DependentUpon>
     </Content>
     <Content Include="Scripts\antix\map.cshtml" />
     <Content Include="packages.config" />
@@ -282,6 +271,7 @@
     <Content Include="Content\bootstrap\alerts.less" />
     <Content Include="Client\home\home-send-form.cshtml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <Content Include="Scripts\antix\status\antix-status.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\i18n\angular-locale_aa-dj.js" />
@@ -1013,6 +1003,8 @@
     <Content Include="Scripts\i18n\angular-locale_zu-za.js" />
     <Content Include="Scripts\i18n\angular-locale_zu.js" />
     <Content Include="Scripts\antix\map-marker.cshtml" />
+    <Content Include="Scripts\antix\status\antix-status.less" />
+    <Content Include="Scripts\antix\status\antix-status.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Scripts\jquery-2.1.1.js" />
     <Content Include="Scripts\jquery-2.1.1.min.js" />
@@ -1070,9 +1062,13 @@
     <Compile Include="Domain\IClientsHubContext.cs" />
     <Compile Include="Domain\IGetHostConfigurationService.cs" />
     <Compile Include="Domain\IHitClientService.cs" />
+    <Compile Include="Domain\IClientStatusService.cs" />
     <Compile Include="Domain\IRemoveClientService.cs" />
     <Compile Include="Domain\ISendService.cs" />
+    <Compile Include="Domain\ClientStatusService.cs" />
+    <Compile Include="Domain\Models\ClientStatusModel.cs" />
     <Compile Include="Domain\Models\ClientModel.cs" />
+    <Compile Include="Domain\Models\ClientStatusType.cs" />
     <Compile Include="Domain\Models\HitModel.cs" />
     <Compile Include="Domain\Models\HostConfiguration.cs" />
     <Compile Include="Domain\Models\IPModel.cs" />
@@ -1084,6 +1080,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Domain\Models\LocationModel.cs" />
     <Compile Include="Domain\IGeoLocationService.cs" />
+    <Compile Include="Realtime\ErrorCodes.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>

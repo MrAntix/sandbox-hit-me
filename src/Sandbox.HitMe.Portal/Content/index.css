@@ -6163,6 +6163,33 @@ button.close {
     display: none !important;
   }
 }
+.a-status {
+  position: fixed;
+  z-index: 10;
+  max-width: 80%;
+  bottom: 0;
+  right: 10%;
+  padding-right: 35px;
+}
+.a-status .close {
+  position: absolute;
+  top: 7px;
+  right: 10px;
+}
+.a-status.ng-hide-add,
+.a-status.ng-hide-remove {
+  display: block !important;
+}
+.a-status.ng-hide-add.ng-hide-add-active,
+.a-status.ng-hide-remove {
+  -webkit-animation: fadeOutDown 0.25s both ease-in;
+  animation: fadeOutDown 0.25s both ease-in;
+}
+.a-status.ng-hide-add,
+.a-status.ng-hide-remove.ng-hide-remove-active {
+  -webkit-animation: fadeInUp 0.5s both ease-in;
+  animation: fadeInUp 0.5s both ease-in;
+}
 body {
   padding-top: 50px;
 }
@@ -6223,5 +6250,37 @@ body {
 }
 [name='sendForm'] button {
   width: 100px;
+}
+.message {
+  overflow: hidden;
+  text-align: left;
+  padding: 15px 30px 15px 30px;
+}
+.message:before {
+  position: absolute;
+  left: 10px;
+  top: 16px;
+  font-family: 'Glyphicons Halflings';
+}
+.message-info {
+  color: #31708f;
+  background-color: #d9edf7;
+}
+.message-info:before {
+  content: '\e086';
+}
+.message-error {
+  color: #a94442;
+  background-color: #f2dede;
+}
+.message-error:before {
+  content: '\e083';
+}
+.message-success {
+  color: #3c763d;
+  background-color: #dff0d8;
+}
+.message-success:before {
+  content: '\e084';
 }
 /*# sourceMappingURL=index.css.map */

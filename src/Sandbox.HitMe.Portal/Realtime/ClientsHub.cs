@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Net.Mail;
 using System.Threading.Tasks;
 using Antix.Logging;
 using Microsoft.AspNet.SignalR;
-using Newtonsoft.Json;
 using Sandbox.HitMe.Portal.Domain;
 using Sandbox.HitMe.Portal.Domain.Models;
 
@@ -15,17 +13,20 @@ namespace Sandbox.HitMe.Portal.Realtime
         readonly IGeoLocationService _geoLocationService;
         readonly IAddClientService _addClientService;
         readonly IRemoveClientService _removeClientService;
+        readonly IClientStatusService _clientStatusService;
 
         public ClientsHub(
             Log.Delegate log,
             IGeoLocationService geoLocationService,
             IAddClientService addClientService,
-            IRemoveClientService removeClientService)
+            IRemoveClientService removeClientService,
+            IClientStatusService clientStatusService)
         {
             _log = log;
             _geoLocationService = geoLocationService;
             _addClientService = addClientService;
             _removeClientService = removeClientService;
+            _clientStatusService = clientStatusService;
         }
 
         public override async Task OnConnected()
@@ -40,13 +41,37 @@ namespace Sandbox.HitMe.Portal.Realtime
                 IP = new IPModel
                 {
                     Address = ipAddress,
-                    Location = await _geoLocationService.ExecuteAsync(ipAddress)
+                    Location = await GetLocation(ipAddress)
                 }
             };
 
             await _addClientService.ExecuteAsync(client);
 
+            if (client.IP.Location == LocationModel.Origin)
+            {
+                await _clientStatusService.ExecuteAsync(new ClientStatusModel
+                {
+                    Id = Context.ConnectionId,
+                    Type = ClientStatusType.Error,
+                    Message = ErrorCodes.ERROR_LOCATION_SERVICE
+                });
+            }
+
             await base.OnConnected();
+        }
+
+        async Task<LocationModel> GetLocation(string ipAddress)
+        {
+            try
+            {
+                return await _geoLocationService.ExecuteAsync(ipAddress);
+            }
+            catch (Exception ex)
+            {
+                _log.Error(m => m(ex, ErrorCodes.ERROR_LOCATION_SERVICE));
+
+                return LocationModel.Origin;
+            }
         }
 
         public override async Task OnReconnected()

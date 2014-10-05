@@ -30,10 +30,10 @@ angular.module('home', [
                 templateUrl: 'Client/home/home-send-form.cshtml',
                 link: function (scope) {
 
-                    scope.status = "Send";
+                    scope.sendStatus = "Send";
 
                     scope.send = function () {
-                        scope.status = "Sending ...";
+                        scope.sendStatus = "Sending ...";
                         scope.sendDisabled = true;
 
                         $timeout(function() {
@@ -42,7 +42,7 @@ angular.module('home', [
                     }
 
                     scope.$on(homeEvents.send, function (e, success) {
-                        scope.status = success ? 'Sent!' : 'Error';
+                        scope.sendStatus = success ? 'Sent!' : 'Error';
                         scope.sendDisabled = false;
                     });
                 }
